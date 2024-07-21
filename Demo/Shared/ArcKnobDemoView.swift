@@ -13,11 +13,14 @@ struct ArcKnobDemoView: View {
                     ArcKnob("VOL", value: $volume)
                         .backgroundColor(.yellow)
                         .foregroundColor(.blue)
+                        .fontFace("Saira")
                     ArcKnob("dB", value: $dB, range: -20...6, origin: 0)
                         .backgroundColor(.orange)
                         .foregroundColor(.red)
+                        .fontFace("Saira")
                     ArcKnob("PAN", value: $pan, range: -50...50)
                         .foregroundColor(.accentColor)
+                        .fontFace("Saira")
                 }
             }
         }

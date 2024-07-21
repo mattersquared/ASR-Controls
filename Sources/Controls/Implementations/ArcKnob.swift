@@ -7,7 +7,7 @@ public struct ArcKnob: View {
 
     var backgroundColor: Color = .gray
     var foregroundColor: Color = .red
-    var font: Font = .system(.body)
+    var fontFace: String = ""
 
     @State var isShowingValue = false
     var range: ClosedRange<Float>
@@ -44,6 +44,15 @@ public struct ArcKnob: View {
 
     var originLocation: Float {
         (origin - range.lowerBound) / (range.upperBound - range.lowerBound)
+    }
+
+    private func font(_ geo: GeometryProxy) -> Font {
+        let size = dim(geo) * 0.2
+        if fontFace.isEmpty {
+            return .system(size: size, weight: .bold)
+        } else {
+            return .custom(fontFace, size: size).weight(.black)
+        }
     }
 
 
@@ -90,7 +99,7 @@ public struct ArcKnob: View {
 
                 Text("\(isShowingValue ? "\(Int(value))" : text)")
                     .frame(width: dim(geo) * 0.8)
-                    .font(font)
+                    .font(font(geo))
                     .foregroundColor(backgroundColor)
             }
         }
@@ -115,11 +124,11 @@ extension ArcKnob {
         return copy
     }
 
-    /// Modifier to change the font of the knob
-    /// - Parameter font: the font
-    public func font(_ font: Font) -> ArcKnob {
+    /// Modifier to change the font face of the knob
+    /// - Parameter fontFace: the font face as a string
+    public func fontFace(_ fontFace: String) -> ArcKnob {
         var copy = self
-        copy.font = font
+        copy.fontFace = fontFace
         return copy
     }
 }
