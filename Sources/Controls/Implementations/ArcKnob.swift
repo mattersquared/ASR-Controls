@@ -51,7 +51,7 @@ public struct ArcKnob: View {
         if fontFace.isEmpty {
             return .system(size: size, weight: .bold)
         } else {
-            return .custom(fontFace, size: size).weight(.black)
+            return .custom(fontFace, size: size).weight(.bold)
         }
     }
 
