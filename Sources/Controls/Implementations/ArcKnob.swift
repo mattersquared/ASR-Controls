@@ -7,6 +7,7 @@ public struct ArcKnob: View {
 
     var backgroundColor: Color = .gray
     var foregroundColor: Color = .red
+    var font: Font = .system(.body)
 
     @State var isShowingValue = false
     var range: ClosedRange<Float>
@@ -89,7 +90,7 @@ public struct ArcKnob: View {
 
                 Text("\(isShowingValue ? "\(Int(value))" : text)")
                     .frame(width: dim(geo) * 0.8)
-                    .font(Font.system(size: dim(geo) * 0.2, weight: .bold))
+                    .font(font)
                     .foregroundColor(backgroundColor)
             }
         }
@@ -111,6 +112,14 @@ extension ArcKnob {
     public func foregroundColor(_ foregroundColor: Color) -> ArcKnob {
         var copy = self
         copy.foregroundColor = foregroundColor
+        return copy
+    }
+
+    /// Modifier to change the font of the knob
+    /// - Parameter font: the font
+    public func font(_ font: Font) -> ArcKnob {
+        var copy = self
+        copy.font = font
         return copy
     }
 }
