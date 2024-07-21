@@ -9,10 +9,20 @@ public struct IndexedSlider: View {
     var foregroundColor: Color = .red
     var cornerRadius: CGFloat = 0
     var indicatorPadding: CGFloat = 0.07
+    var fontFace: String = ""
 
     public init(index: Binding<Int>, labels: [String]) {
         _index = index
         self.labels = labels
+    }
+
+    private func font() -> Font {
+        let size = 16.0
+        if fontFace.isEmpty {
+            return .system(.body)
+        } else {
+            return .custom(fontFace, size: size)
+        }
     }
 
     public var body: some View {
@@ -35,6 +45,7 @@ public struct IndexedSlider: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
+                        .font(font())
                 }.padding(indicatorPadding * geo.size.height)
                 .frame(width: geo.size.width / CGFloat(labels.count))
                 .offset(x: CGFloat(index) * geo.size.width / CGFloat(labels.count))
@@ -69,6 +80,14 @@ extension IndexedSlider {
     public func cornerRadius(_ cornerRadius: CGFloat) -> IndexedSlider {
         var copy = self
         copy.cornerRadius = cornerRadius
+        return copy
+    }
+    
+    /// Modifier to change the font face used in the slider and its components
+    /// - Parameter fontFace: font face as a string
+    public func fontFace(_ fontFace: String) -> IndexedSlider {
+        var copy = self
+        copy.fontFace = fontFace
         return copy
     }
 }

@@ -55,7 +55,6 @@ public struct ArcKnob: View {
         }
     }
 
-
     var trimFrom: CGFloat {
         if value >= origin {
             return minimumAngle.degrees / 360 + CGFloat(originLocation) * angleRange / 360.0

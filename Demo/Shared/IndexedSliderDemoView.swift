@@ -14,6 +14,7 @@ struct IndexedSliderDemoView: View {
                         .backgroundColor(.yellow)
                         .foregroundColor(.blue)
                         .cornerRadius(10)
+                        .fontFace("Saira")
                         .frame(width: proxy.size.width / 3,
                                height: proxy.size.height / 20)
                     IndexedSlider(index: $index2, labels: ["1", "2", "3", "4", "5", "6", "7", "9"])
