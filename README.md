@@ -1,3 +1,5 @@
+<i>This is a custom, modified copy of the Controls library. For the original, see https://github.com/AudioKit/Controls/fork</i>
+
 # Controls
 
 ![controls](https://user-images.githubusercontent.com/13122/189456340-a5e263e7-c922-4deb-9504-e523a8aef821.png)
