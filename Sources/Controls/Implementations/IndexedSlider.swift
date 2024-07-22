@@ -36,6 +36,9 @@ public struct IndexedSlider: View {
                             RoundedRectangle(cornerRadius: cornerRadius)
                                 .foregroundColor(foregroundColor.opacity(0.15))
                             Text(labels[i])
+                                .font(font())
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.5)
                         }.padding(indicatorPadding * geo.size.height)
                         .frame(width: geo.size.width / CGFloat(labels.count))
                         .offset(x: CGFloat(i) * geo.size.width / CGFloat(labels.count))
@@ -46,6 +49,8 @@ public struct IndexedSlider: View {
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
                         .font(font())
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
                 }.padding(indicatorPadding * geo.size.height)
                 .frame(width: geo.size.width / CGFloat(labels.count))
                 .offset(x: CGFloat(index) * geo.size.width / CGFloat(labels.count))
@@ -90,4 +95,18 @@ extension IndexedSlider {
         copy.fontFace = fontFace
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var index = 2
+        var body: some View {
+            IndexedSlider(index: $index, labels: ["c", "c ♯", "d", "d ♯", "e", "f", "f♯", "g", "g ♯", "a", "a ♯", "b", "c", "long"])
+                .fontFace("Verdana")
+                .cornerRadius(100000)
+                .frame(height: 32)
+        }
+    }
+
+    return PreviewWrapper()
 }
