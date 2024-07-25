@@ -3,7 +3,7 @@ import SwiftUI
 public struct IndexedSlider: View {
     @Binding var index: Int
     @State var normalValue: Float = 0.0
-    var labels: [String]
+    var labels: [AttributedString]
 
     var backgroundColor: Color = .gray
     var foregroundColor: Color = .red
@@ -11,7 +11,11 @@ public struct IndexedSlider: View {
     var indicatorPadding: CGFloat = 0.07
     var fontFace: String = ""
 
-    public init(index: Binding<Int>, labels: [String]) {
+    init(index: Binding<Int>, labels: [String]) {
+        self.init(index: index, labels: labels.map(AttributedString.init))
+    }
+
+    public init(index: Binding<Int>, labels: [AttributedString]) {
         _index = index
         self.labels = labels
     }
@@ -19,9 +23,9 @@ public struct IndexedSlider: View {
     private func font() -> Font {
         let size = 16.0
         if fontFace.isEmpty {
-            return .system(.body)
+            return .system(.body).bold()
         } else {
-            return .custom(fontFace, size: size)
+            return .custom(fontFace, size: size).bold()
         }
     }
 
@@ -44,11 +48,12 @@ public struct IndexedSlider: View {
                         .offset(x: CGFloat(i) * geo.size.width / CGFloat(labels.count))
                     }
                 }
+                // the item that is selected?
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
-                        .font(font())
+                        .font(font()) // TODO: Color options
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                 }.padding(indicatorPadding * geo.size.height)
