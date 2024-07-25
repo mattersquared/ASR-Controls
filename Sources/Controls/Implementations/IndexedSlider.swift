@@ -41,6 +41,7 @@ public struct IndexedSlider: View {
                                 .foregroundColor(foregroundColor.opacity(0.15))
                             Text(labels[i])
                                 .font(font())
+                                .foregroundColor(foregroundColor) // TODO: MORE COLOR OPTS
                                 .lineLimit(1)
                                 .minimumScaleFactor(0.5)
                         }.padding(indicatorPadding * geo.size.height)
@@ -53,7 +54,8 @@ public struct IndexedSlider: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
-                        .font(font()) // TODO: Color options
+                        .font(font()) // TODO: Color options TODO: Consolidate this and the above
+                        .foregroundColor(backgroundColor)
                         .lineLimit(1)
                         .minimumScaleFactor(0.5)
                 }.padding(indicatorPadding * geo.size.height)
