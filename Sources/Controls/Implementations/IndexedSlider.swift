@@ -108,7 +108,9 @@ extension IndexedSlider {
     struct PreviewWrapper: View {
         @State var index = 2
         var body: some View {
-            IndexedSlider(index: $index, labels: ["c", "c ♯", "d", "d ♯", "e", "f", "f♯", "g", "g ♯", "a", "a ♯", "b", "c", "long"])
+            IndexedSlider(index: $index, labels: ["c", "c♯", "d", "d♯", "e", "f", "f♯", "g", "g♯", "a", "a♯", "b", "c"])
+                .backgroundColor(.mint)
+                .foregroundColor(.black)
                 .fontFace("Verdana")
                 .cornerRadius(100000)
                 .frame(height: 32)
