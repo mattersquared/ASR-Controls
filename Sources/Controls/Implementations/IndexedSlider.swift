@@ -40,7 +40,8 @@ public struct IndexedSlider: View {
                             RoundedRectangle(cornerRadius: cornerRadius)
                                 .foregroundColor(foregroundColor.opacity(0.15))
                             Text(labels[i])
-                                .indexedSliderText(font: font(), backgroundColor: backgroundColor)
+                                .indexedSliderText(font: font())
+                                .foregroundColor(foregroundColor)
                         }.padding(indicatorPadding * geo.size.height)
                         .frame(width: geo.size.width / CGFloat(labels.count))
                         .offset(x: CGFloat(i) * geo.size.width / CGFloat(labels.count))
@@ -51,7 +52,8 @@ public struct IndexedSlider: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
-                        .indexedSliderText(font: font(), backgroundColor: backgroundColor)
+                        .indexedSliderText(font: font())
+                        .foregroundColor(backgroundColor)
 
                 }.padding(indicatorPadding * geo.size.height)
                 .frame(width: geo.size.width / CGFloat(labels.count))
@@ -100,24 +102,21 @@ extension IndexedSlider {
 }
 
 private extension View {
-    func indexedSliderText(font: Font, backgroundColor: Color) -> some View {
-        self.modifier(IndexedSliderModifier(font: font, backgroundColor: backgroundColor))
+    func indexedSliderText(font: Font) -> some View {
+        self.modifier(IndexedSliderModifier(font: font))
     }
 }
 
 private struct IndexedSliderModifier: ViewModifier {
     private let font: Font
-    private let backgroundColor: Color
 
-    init(font: Font, backgroundColor: Color) {
+    init(font: Font) {
         self.font = font
-        self.backgroundColor = backgroundColor
     }
 
     func body(content: Content) -> some View {
         content
             .font(font)
-            .foregroundColor(backgroundColor)
             .lineLimit(1)
             .minimumScaleFactor(0.5)
     }
