@@ -40,10 +40,7 @@ public struct IndexedSlider: View {
                             RoundedRectangle(cornerRadius: cornerRadius)
                                 .foregroundColor(foregroundColor.opacity(0.15))
                             Text(labels[i])
-                                .font(font())
-                                .foregroundColor(foregroundColor) // TODO: MORE COLOR OPTS
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.5)
+                                .indexedSliderText(font: font(), backgroundColor: backgroundColor)
                         }.padding(indicatorPadding * geo.size.height)
                         .frame(width: geo.size.width / CGFloat(labels.count))
                         .offset(x: CGFloat(i) * geo.size.width / CGFloat(labels.count))
@@ -54,10 +51,8 @@ public struct IndexedSlider: View {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
                     Text(labels[index])
-                        .font(font()) // TODO: Color options TODO: Consolidate this and the above
-                        .foregroundColor(backgroundColor)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.5)
+                        .indexedSliderText(font: font(), backgroundColor: backgroundColor)
+
                 }.padding(indicatorPadding * geo.size.height)
                 .frame(width: geo.size.width / CGFloat(labels.count))
                 .offset(x: CGFloat(index) * geo.size.width / CGFloat(labels.count))
@@ -101,6 +96,30 @@ extension IndexedSlider {
         var copy = self
         copy.fontFace = fontFace
         return copy
+    }
+}
+
+private extension View {
+    func indexedSliderText(font: Font, backgroundColor: Color) -> some View {
+        self.modifier(IndexedSliderModifier(font: font, backgroundColor: backgroundColor))
+    }
+}
+
+private struct IndexedSliderModifier: ViewModifier {
+    private let font: Font
+    private let backgroundColor: Color
+
+    init(font: Font, backgroundColor: Color) {
+        self.font = font
+        self.backgroundColor = backgroundColor
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .font(font)
+            .foregroundColor(backgroundColor)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
     }
 }
 
