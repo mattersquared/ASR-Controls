@@ -10,6 +10,8 @@ public struct Joystick: View {
 
     func ended() { radius = 0 }
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initialize the joystick with radial and angular parameter
     /// - Parameters:
     ///   - radius: value bound to the distance from zero
@@ -32,7 +34,7 @@ public struct Joystick: View {
                             y: CGFloat(radius * cos(angle * 2.0 * .pi)) * geo.size.height / 2.0)
                     .animation(.spring(response: 0.1), value: radius)
             }
-        }
+        }.enabledState(isEnabled)
     }
 }
 
@@ -52,4 +54,19 @@ extension Joystick {
         copy.foregroundColor = foregroundColor
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var radius: Float
+        @State var angle: Float
+        @State private var isDisabled: Bool = false
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+            Joystick(radius: $radius, angle: $angle)
+                .disabled(isDisabled)
+        }
+    }
+
+    return PreviewWrapper(radius: 5, angle: 300)
 }

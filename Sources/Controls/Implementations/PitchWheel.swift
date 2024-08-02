@@ -11,6 +11,8 @@ public struct PitchWheel: View {
     var indicatorPadding: CGFloat = 0.07
     var indicatorHeight: CGFloat = 40
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initial the wheel with a type and bound value
     /// - Parameter value: value to control
     public init(value: Binding<Float>) {
@@ -44,6 +46,7 @@ public struct PitchWheel: View {
                 .padding(geo.size.width * indicatorPadding)
             }
         }
+        .enabledState(isEnabled)
         .onAppear {
             location = 0.5
         }
@@ -82,4 +85,21 @@ extension PitchWheel {
         copy.indicatorHeight = indicatorHeight
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var value: Float
+        @State private var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+
+            PitchWheel(value: $value)
+                .disabled(isDisabled)
+                .frame(width: 100)
+        }
+    }
+
+    return PreviewWrapper(value: 0.5)
 }

@@ -10,6 +10,8 @@ public struct ModWheel: View {
     var indicatorPadding: CGFloat = 0.07
     var indicatorHeight: CGFloat = 40
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initial the wheel with a type and bound value
     /// - Parameter value: value to control
     public init(value: Binding<Float>) {
@@ -41,7 +43,7 @@ public struct ModWheel: View {
                 .animation(.spring(response: 0.2), value: location)
                 .padding(geo.size.width * indicatorPadding)
             }
-        }
+        }.enabledState(isEnabled)
     }
 }
 
@@ -77,4 +79,21 @@ extension ModWheel {
         copy.indicatorHeight = indicatorHeight
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var value: Float
+        @State private var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+            
+            ModWheel(value: $value)
+                .disabled(isDisabled)
+                .frame(width: 100)
+        }
+    }
+
+    return PreviewWrapper(value: 0.5)
 }

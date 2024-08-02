@@ -11,3 +11,9 @@ extension CGRect {
         offsetBy(dx: off.width, dy: off.height)
     }
 }
+
+extension View {
+    func enabledState(_ isEnabled: Bool) -> some View {
+        self.opacity(isEnabled ? 1.0 : 0.5)
+    }
+}

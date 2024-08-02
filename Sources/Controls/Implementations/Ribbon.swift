@@ -10,6 +10,8 @@ public struct Ribbon: View {
     var indicatorPadding: CGFloat = 0.07
     var indicatorWidth: CGFloat = 40
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initialize with the minimum description
     /// - Parameter position: Normalized position of the ribbon
     public init(position: Binding<Float>) {
@@ -40,7 +42,7 @@ public struct Ribbon: View {
                 }
                 .padding(geo.size.height * indicatorPadding)
             }
-        }
+        }.enabledState(isEnabled)
     }
 }
 
@@ -76,4 +78,21 @@ extension Ribbon {
         copy.indicatorWidth = indicatorWidth
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var value: Float
+        @State private var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+
+            Ribbon(position: $value)
+                .disabled(isDisabled)
+                .frame(height: 50)
+        }
+    }
+
+    return PreviewWrapper(value: 0.33)
 }

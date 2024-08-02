@@ -8,6 +8,8 @@ public struct SmallKnob: View {
     var backgroundColor: Color = .gray
     var foregroundColor: Color = .black
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initialize the knob with a bound value and range
     /// - Parameters:
     ///   - value: value being controlled
@@ -41,7 +43,8 @@ public struct SmallKnob: View {
                     .offset(x: offsetX * Double(geo.size.width), y: offsetY * Double(geo.size.height))
             }.drawingGroup() // Drawing groups improve antialiasing of rotated indicator
         }
-        .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fit)
+                .enabledState(isEnabled)
+                .aspectRatio(CGSize(width: 1, height: 1), contentMode: .fit)
 
     }
 }
@@ -63,4 +66,21 @@ extension SmallKnob {
         copy.foregroundColor = foregroundColor
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var value: Float
+        @State private var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+
+            SmallKnob(value: $value)
+                .disabled(isDisabled)
+                .frame(width: 100)
+        }
+    }
+
+    return PreviewWrapper(value: 0.5)
 }

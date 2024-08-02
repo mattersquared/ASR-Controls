@@ -13,6 +13,8 @@ public struct ArcKnob: View {
     var range: ClosedRange<Float>
     var origin: Float = 0
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initialize the knob
     /// - Parameters:
     ///   - text: Default text that shows when the value is not shown
@@ -102,7 +104,7 @@ public struct ArcKnob: View {
                     .foregroundColor(backgroundColor)
                     .lineLimit(1)
                     .minimumScaleFactor(0.2)
-            }
+            }.enabledState(isEnabled)
         }
     }
 }
@@ -132,4 +134,22 @@ extension ArcKnob {
         copy.fontFace = fontFace
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var value: Float = 0.0
+        @State var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+                .toggleStyle(.switch)
+
+            ArcKnob("Mod", value: $value, range: -10...10, origin: -0.5)
+                .disabled(isDisabled)
+        }
+    }
+
+    return PreviewWrapper()
+
 }

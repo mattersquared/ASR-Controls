@@ -11,6 +11,8 @@ public struct XYPad: View {
     var indicatorPadding: CGFloat = 0.2
     var indicatorSize: CGSize = CGSize(width: 40, height: 40)
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     /// Initiate the control with two parameters
     /// - Parameters:
     ///   - x: horizontal parameter 0-1
@@ -44,7 +46,7 @@ public struct XYPad: View {
                     cx.fill(ind, with: .color(foregroundColor))
                 }
             }.padding(indicatorSize.height * indicatorPadding)
-        }
+        }.enabledState(isEnabled)
     }
 }
 
@@ -80,4 +82,22 @@ extension XYPad {
         copy.indicatorSize = indicatorSize
         return copy
     }
+}
+
+#Preview {
+    struct PreviewWrapper: View {
+        @State var xValue: Float
+        @State var yValue: Float
+        @State private var isDisabled: Bool = false
+
+        var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+
+            XYPad(x: $xValue, y: $yValue)
+                .disabled(isDisabled)
+                .frame(width: 250, height: 250)
+        }
+    }
+
+    return PreviewWrapper(xValue: 0.5, yValue: -0.5)
 }

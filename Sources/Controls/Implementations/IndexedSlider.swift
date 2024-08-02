@@ -11,6 +11,8 @@ public struct IndexedSlider: View {
     var indicatorPadding: CGFloat = 0.07
     var fontFace: String = ""
 
+    @Environment(\.isEnabled) private var isEnabled: Bool
+
     init(index: Binding<Int>, labels: [String]) {
         self.init(index: index, labels: labels.map(AttributedString.init))
     }
@@ -61,6 +63,7 @@ public struct IndexedSlider: View {
                 .animation(.easeOut, value: index)
             }
         }
+        .enabledState(isEnabled)
         .onChange(of: normalValue) { _ in
             index = Int(normalValue * 0.99 * Float(labels.count))
         }
@@ -125,12 +128,17 @@ private struct IndexedSliderModifier: ViewModifier {
 #Preview {
     struct PreviewWrapper: View {
         @State var index = 2
+        @State private var isDisabled: Bool = false
+
         var body: some View {
+            Toggle("Disable?", isOn: $isDisabled)
+
             IndexedSlider(index: $index, labels: ["c", "c♯", "d", "d♯", "e", "f", "f♯", "g", "g♯", "a", "a♯", "b", "c"])
                 .backgroundColor(.mint)
                 .foregroundColor(.black)
                 .fontFace("Verdana")
                 .cornerRadius(100000)
+                .disabled(isDisabled)
                 .frame(height: 32)
         }
     }
