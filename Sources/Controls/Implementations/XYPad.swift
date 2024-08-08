@@ -86,8 +86,8 @@ extension XYPad {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var xValue: Float
-        @State var yValue: Float
+        @State var xValue: Float = 0.2
+        @State var yValue: Float = 0.5
         @State private var isDisabled: Bool = false
 
         var body: some View {
@@ -99,5 +99,5 @@ extension XYPad {
         }
     }
 
-    return PreviewWrapper(xValue: 0.5, yValue: -0.5)
+    return PreviewWrapper()
 }

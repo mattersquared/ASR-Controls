@@ -58,8 +58,8 @@ extension Joystick {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var radius: Float
-        @State var angle: Float
+        @State var radius: Float = 0.4
+        @State var angle: Float = 0.37
         @State private var isDisabled: Bool = false
         var body: some View {
             Toggle("Disable?", isOn: $isDisabled)
@@ -68,5 +68,5 @@ extension Joystick {
         }
     }
 
-    return PreviewWrapper(radius: 5, angle: 300)
+    return PreviewWrapper()
 }

@@ -31,6 +31,10 @@ public struct IndexedSlider: View {
         }
     }
 
+    private var activeLabelText: AttributedString {
+        labels[index <> 0...labels.count-1]
+    }
+
     public var body: some View {
         Control(value: $normalValue, geometry: .horizontalPoint) { geo in
             ZStack(alignment: .bottomLeading) {
@@ -49,11 +53,10 @@ public struct IndexedSlider: View {
                         .offset(x: CGFloat(i) * geo.size.width / CGFloat(labels.count))
                     }
                 }
-                // the item that is selected?
                 ZStack {
                     RoundedRectangle(cornerRadius: cornerRadius)
                         .foregroundColor(foregroundColor)
-                    Text(labels[index])
+                    Text(activeLabelText)
                         .indexedSliderText(font: font())
                         .foregroundColor(backgroundColor)
 
@@ -66,6 +69,9 @@ public struct IndexedSlider: View {
         .enabledState(isEnabled)
         .onChange(of: normalValue) { _ in
             index = Int(normalValue * 0.99 * Float(labels.count))
+        }
+        .onAppear {
+            index <>= 0...labels.count-1
         }
     }
 }
@@ -127,7 +133,7 @@ private struct IndexedSliderModifier: ViewModifier {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var index = 2
+        @State var index = 20020
         @State private var isDisabled: Bool = false
 
         var body: some View {

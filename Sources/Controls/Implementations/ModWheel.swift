@@ -44,6 +44,9 @@ public struct ModWheel: View {
                 .padding(geo.size.width * indicatorPadding)
             }
         }.enabledState(isEnabled)
+        .onAppear {
+            location <>= 0...1
+        }
     }
 }
 
@@ -83,7 +86,7 @@ extension ModWheel {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var value: Float
+        @State var value: Float = 0.5
         @State private var isDisabled: Bool = false
 
         var body: some View {
@@ -95,5 +98,5 @@ extension ModWheel {
         }
     }
 
-    return PreviewWrapper(value: 0.5)
+    return PreviewWrapper()
 }

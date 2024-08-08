@@ -82,7 +82,7 @@ extension Ribbon {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var value: Float
+        @State var value: Float = 0.4
         @State private var isDisabled: Bool = false
 
         var body: some View {
@@ -94,5 +94,5 @@ extension Ribbon {
         }
     }
 
-    return PreviewWrapper(value: 0.33)
+    return PreviewWrapper()
 }

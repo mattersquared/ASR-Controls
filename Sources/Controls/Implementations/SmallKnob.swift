@@ -70,7 +70,7 @@ extension SmallKnob {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var value: Float
+        @State var value: Float = 0.5
         @State private var isDisabled: Bool = false
 
         var body: some View {
@@ -82,5 +82,5 @@ extension SmallKnob {
         }
     }
 
-    return PreviewWrapper(value: 0.5)
+    return PreviewWrapper()
 }

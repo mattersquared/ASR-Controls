@@ -17,3 +17,17 @@ extension View {
         self.opacity(isEnabled ? 1.0 : 0.5)
     }
 }
+
+// TODO: Move these to a shared ASR helpers library?
+
+infix operator <> : ComparisonPrecedence
+
+func <><T: Comparable>(value: T, range: ClosedRange<T>) -> T {
+    return max(range.lowerBound, min(value, range.upperBound))
+}
+
+infix operator <>= : AssignmentPrecedence
+
+func <>=<T: Comparable>(value: inout T, range: ClosedRange<T>) {
+    value = max(range.lowerBound, min(value, range.upperBound))
+}

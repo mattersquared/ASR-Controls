@@ -89,7 +89,7 @@ extension PitchWheel {
 
 #Preview {
     struct PreviewWrapper: View {
-        @State var value: Float
+        @State var value: Float = 0.5
         @State private var isDisabled: Bool = false
 
         var body: some View {
@@ -101,5 +101,5 @@ extension PitchWheel {
         }
     }
 
-    return PreviewWrapper(value: 0.5)
+    return PreviewWrapper()
 }

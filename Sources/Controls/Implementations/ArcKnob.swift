@@ -106,6 +106,9 @@ public struct ArcKnob: View {
                     .minimumScaleFactor(0.2)
             }.enabledState(isEnabled)
         }
+        .onAppear {
+            value <>= range
+        }
     }
 }
 
